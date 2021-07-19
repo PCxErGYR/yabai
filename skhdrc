@@ -1,0 +1,175 @@
+
+# restart Yabi, and SKHD(Yabai,Skhd 重启)
+alt + shift - r : \
+    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+    skhd --reload
+
+
+# 模式定义
+:: default : yabai -m config --space 1 window_border off
+:: wrap : yabai -m config --space 1 window_border on
+:: workspace : yabai -m config active_window_border_color 0xFFf08080|yabai -m config --space 1 window_border on
+:: launch :  yabai -m config active_window_border_color 0xFFff00ff|yabai -m config --space 1 window_border on
+
+
+hyper - n ; default
+hyper - return ; workspace 
+ctrl - return ; launch
+# shift - return ; wrap
+
+launch,workspace, wrap < escape ; default
+
+# 指令分配
+# 模式与模式之间的切换
+wrap < hyper - return ; workspace
+wrap < hyper - b ; launch
+
+# wrap mode
+# focus window(同一个空间切换窗口焦点)
+wrap < h : yabai -m window --focus west
+wrap < j : yabai -m window --focus south
+wrap < k : yabai -m window --focus north
+wrap < l : yabai -m window --focus east
+
+
+# fast focus desktop(切换空间焦点)
+workspace < shift - x : yabai -m window --space recent; yabai -m space --focus recent
+workspace < ctrl - x : yabai -m window --display recent; yabai -m display --focus recent
+workspace < x : yabai -m space --focus recent
+workspace < z : yabai -m space --focus prev
+workspace < h : yabai -m space --focus prev
+workspace < c : yabai -m space --focus next
+workspace < l : yabai -m space --focus next
+workspace < 1 : yabai -m space --focus 1
+workspace < 2 : yabai -m space --focus 2
+workspace < 3 : yabai -m space --focus 3
+workspace < 4 : yabai -m space --focus 4
+workspace < 5 : yabai -m space --focus 5
+workspace < 6 : yabai -m space --focus 6
+workspace < 7 : yabai -m space --focus 7
+workspace < 8 : yabai -m space --focus 8
+workspace < 9 : yabai -m space --focus 9
+workspace < 0 : yabai -m space --focus 10
+
+
+# focus window(同一个空间切换窗口焦点)
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+alt - n : yabai -m window --focus stack.next || yabai -m window --focus next || yabai -m window --focus first
+alt - p : yabai -m window --focus stack.prev || yabai -m window --focus prev || yabai -m window --focus last
+
+# Spaces:  Alt + [NUM]
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+
+# Sends Window to Space and shifts focus
+# Send: Shift + Cmd + [NUM]
+shift + alt - 1 : yabai -m window --space  1; yabai -m space --focus 1
+shift + alt - 2 : yabai -m window --space  2; yabai -m space --focus 2
+shift + alt - 3 : yabai -m window --space  3; yabai -m space --focus 3
+shift + alt - 4 : yabai -m window --space  4; yabai -m space --focus 4
+shift + alt - 5 : yabai -m window --space  5; yabai -m space --focus 5
+shift + alt - 6 : yabai -m window --space  6; yabai -m space --focus 6
+shift + alt - 7 : yabai -m window --space  7; yabai -m space --focus 7
+shift + alt - 8 : yabai -m window --space  8; yabai -m space --focus 8
+shift + alt - x : yabai -m window --space recent; yabai -m space --focus recent
+shift + ctrl - x : yabai -m window --display recent; yabai -m display --focus recent
+
+
+# focus monitor(切换显示器焦点)
+
+hyper - x  : yabai -m display --focus recent
+
+# send window to monitor and follow focus(将当前活跃窗口发送到指定显示器)
+hyper - s  : yabai -m window --display recent; yabai -m display --focus recent
+hyper - a  : yabai -m window --display prev; yabai -m display --focus prev
+hyper - d  : yabai -m window --display next; yabai -m display --focus next
+
+
+alt - x : yabai -m space --focus recent
+# rotate tree(逆时针旋转空间多个窗口)
+alt - r : yabai -m space --rotate 90
+
+# mirror tree y-axis(纵轴调换窗口)
+alt - y : yabai -m space --mirror y-axis
+
+# mirror tree x-axis(横轴调换窗口)
+#alt - x : yabai -m space --mirror x-axis
+
+# toggle desktop offset
+alt - a : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# toggle window parent zoom
+alt - d : yabai -m window --toggle zoom-parent
+
+# toggle window fullscreen zoom(单个窗口进入或退出全屏)
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# toggle window native fullscreen(单个窗口进入或退出真全屏-上方的icon都会消失)
+shift + alt - f : yabai -m window --toggle native-fullscreen
+
+# toggle window border
+shift + alt - b : yabai -m window --toggle border
+
+# toggle window split type(切换分割方式)
+alt - e : yabai -m window --toggle split
+
+# float / unfloat window and center on screen(控制窗口是否进入float模式,进入的话就不会自动被排列)
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+
+# toggle sticky (show on all spaces)
+alt - s : yabai -m window --toggle sticky
+
+# toggle topmost (keep above other windows)
+alt - o : yabai -m window --toggle topmost
+
+# toggle sticky(+float), topmost, border and picture-in-picture
+hyper - p : yabai -m window --toggle sticky;\
+          yabai -m window --toggle topmost;\
+          yabai -m window --toggle border;\
+          yabai -m window --toggle pip
+
+# make floating window fill screen
+ctrl - k     : yabai -m window --grid 1:1:0:0:1:1
+
+# make floating window fill left-half of screen
+ctrl - l  : yabai -m window --grid 1:2:0:0:1:1
+
+# make floating window fill right-half of screen
+ctrl - h  : yabai -m window --grid 1:2:1:0:1:1
+
+# float / unfloat window and center on screen(控制窗口是否进入float模式,进入的话就不会自动被排列)
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+
+ctrl - j : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+
+
+# Stack configuration
+
+
+
+
+# change layout of desktop(更换layout方式)
+ctrl + alt - a : yabai -m space --layout bsp
+ctrl + alt - d : yabai -m space --layout float
+ctrl + alt - s : yabai -m space --layout stack
+
+
+
+#Launcher
+launch < h : open ~                                      | skhd -k 'escape'
+launch < 1 : open /Applications/IntelliJ\ IDEA.app       | skhd -k 'escape'
+launch < 2 : open /Applications/WebStorm.app             | skhd -k 'escape'
+launch < 0 : /Applications/Alacritty.app/Contents/MacOS/alacritty --working-directory /Volumes/Devspace/Project | skhd -k 'escape
+launch < 9 : /Applications/Alacritty.app/Contents/MacOS/alacritty --working-directory /Volumes/Devspace/Appstation | skhd -k 'escape                                     | skhd -k 'escape'
