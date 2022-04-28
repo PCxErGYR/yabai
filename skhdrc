@@ -1,11 +1,19 @@
 
-# restart Yabi, and SKHD(Yabai,Skhd 重启)
-alt + shift - r : \
-    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
-    skhd --reload
+# Restart Yabi, and SKHD(Yabai,Skhd 重启)
+ctrl + alt + shift + cmd - r : \
+    /usr/bin/env osascript <<< \
+        "display notification \"Restarting Yabai\" with title \"Yabai\""; \
+    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
+# Open Application
+ctrl + alt + shift + cmd - return : open -a /Applications/Warp.app
+fn - i : open -a /Applications/IntelliJ\ IDEA.app
+fn - t : open -a /Applications/TablePlus.app
+fn - w : open -a /Applications/WeChat.app
+fn - n : open -a /Applications/Nova.app 
+fn - s : open -a /Applications/Safari.app
 
-# focus window(同一个空间切换窗口焦点)
+# focus window on same space
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
@@ -13,15 +21,13 @@ alt - l : yabai -m window --focus east
 alt - n : yabai -m window --focus stack.next || yabai -m window --focus next || yabai -m window --focus first
 alt - p : yabai -m window --focus stack.prev || yabai -m window --focus prev || yabai -m window --focus last
 
-# Spaces:  Alt + [NUM]
+# Focus Space
+ctrl - 0x32 : yabai -m space --focus recent
 alt - 1 : yabai -m space --focus 1
 alt - 2 : yabai -m space --focus 2
 alt - 3 : yabai -m space --focus 3
 alt - 4 : yabai -m space --focus 4
 alt - 5 : yabai -m space --focus 5
-alt - 6 : yabai -m space --focus 6
-alt - 7 : yabai -m space --focus 7
-alt - 8 : yabai -m space --focus 8
 
 # Sends Window to Space and shifts focus
 # Send: Shift + alt + [NUM]
@@ -34,20 +40,21 @@ shift + alt - 6 : yabai -m window --space  6; yabai -m space --focus 6
 shift + alt - 7 : yabai -m window --space  7; yabai -m space --focus 7
 shift + alt - 8 : yabai -m window --space  8; yabai -m space --focus 8
 shift + alt - x : yabai -m window --space recent; yabai -m space --focus recent
+ctrl - tab : yabai -m window --space recent; yabai -m space --focus recent
 shift + ctrl - x : yabai -m window --display recent; yabai -m display --focus recent
 
 
 # focus monitor(切换显示器焦点)
-
-hyper - x  : yabai -m display --focus recent
+alt - 0x32 : yabai -m window --display recent; yabai -m display --focus recent
+alt - tab : yabai -m display --focus recent 
 
 # Monitor: send window to monitor and follow focus(将当前活跃窗口发送到指定显示器)
-hyper - s  : yabai -m window --display recent; yabai -m display --focus recent
+# hyper - s  : yabai -m window --display recent; yabai -m display --focus recent
 hyper - a  : yabai -m window --display prev; yabai -m display --focus prev
 hyper - d  : yabai -m window --display next; yabai -m display --focus next
 
 
-alt - x : yabai -m space --focus recent
+# alt - x : yabai -m space --focus recent
 # rotate tree(逆时针旋转空间多个窗口)
 alt - r : yabai -m space --rotate 90
 
@@ -64,7 +71,7 @@ alt - a : yabai -m space --toggle padding; yabai -m space --toggle gap
 alt - d : yabai -m window --toggle zoom-parent
 
 # toggle window fullscreen zoom(单个窗口进入或退出全屏)
-alt - f : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen 
 
 # toggle window native fullscreen(单个窗口进入或退出真全屏-上方的icon都会消失)
 shift + alt - f : yabai -m window --toggle native-fullscreen
@@ -95,22 +102,18 @@ hyper - p : yabai -m window --toggle sticky;\
 ctrl - k     : yabai -m window --grid 1:1:0:0:1:1
 
 # make floating window fill left-half of screen
-ctrl - l  : yabai -m window --grid 1:2:0:0:1:1
+ctrl - h  : yabai -m window --grid 1:2:0:0:1:1
 
 # make floating window fill right-half of screen
-ctrl - h  : yabai -m window --grid 1:2:1:0:1:1
+ctrl - l  : yabai -m window --grid 1:2:1:0:1:1
 
 # float / unfloat window and center on screen(控制窗口是否进入float模式,进入的话就不会自动被排列)
 alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 
-ctrl - j : yabai -m window --toggle float;\
-          yabai -m window --grid 4:4:1:1:2:2
-
-
 #Layout:  change layout of desktop(更换layout方式)
-ctrl + alt - a : yabai -m space --layout bsp
-ctrl + alt - d : yabai -m space --layout float
-ctrl + alt - s : yabai -m space --layout stack
+ctrl - 0x12 : yabai -m space --layout bsp
+ctrl - 0x13 : yabai -m space --layout stack
+ctrl - 0x14 : yabai -m space --layout float
 
 
